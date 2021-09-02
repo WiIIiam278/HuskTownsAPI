@@ -28,8 +28,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.William278.HuskTowns</groupId>
-            <artifactId>Spigot</artifactId>
+            <groupId>me.william278.HuskTowns</groupId>
+            <artifactId>bukkit</artifactId>
             <version>1.5.3</version>
         </dependency>
     </dependencies>
