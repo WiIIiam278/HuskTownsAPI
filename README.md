@@ -1,4 +1,4 @@
-[![Header](https://i.imgur.com/JckKnZZ.png "Header")](https://github.com/WiIIiam278/HuskTownsDocs/)
+[![Header](https://i.imgur.com/JckKnZZ.png "Header")](https://github.com/WiIIiam278/HuskTownsAPI/)
 # HuskTownsAPI
 [![Discord](https://img.shields.io/discord/818135932103557162?color=7289da&logo=discord)](https://discord.gg/tVYhJfyDWG)
 
