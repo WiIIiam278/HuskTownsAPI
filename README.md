@@ -5,4 +5,3 @@
 This repository contains the API module of HuskTowns.
 
 * Documentation for the API, including a list of methods and examples [can be found here](https://github.com/WiIIiam278/HuskTownsDocs/wiki/API).
-* Javadocs can be found here.
