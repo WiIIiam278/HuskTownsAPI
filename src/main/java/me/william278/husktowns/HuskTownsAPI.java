@@ -1,4 +1,5 @@
-import me.william278.husktowns.HuskTowns;
+package me.william278.husktowns;
+
 import me.william278.husktowns.data.DataManager;
 import me.william278.husktowns.listener.EventListener;
 import me.william278.husktowns.object.cache.Cache;
