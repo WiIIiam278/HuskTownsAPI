@@ -2,7 +2,7 @@
 # HuskTownsAPI
 [![Discord](https://img.shields.io/discord/818135932103557162?color=7289da&logo=discord)](https://discord.gg/tVYhJfyDWG)
 
-This repository contains the API module of [HuskTowns](https://github.com/WiIIiam278/HuskTownsDocs). You can find out more about the HuskTowns API on the [wiki page](https://github.com/WiIIiam278/HuskTownsDocs/wiki/API).
+This repository contains the API module of [HuskTowns](https://github.com/WiIIiam278/HuskTowns). You can find out more about the HuskTowns API on the [wiki page](https://github.com/WiIIiam278/HuskTowns/wiki/API).
 
-* Documentation for the API, including a list of methods and example usages [can be found here](https://github.com/WiIIiam278/HuskTownsDocs/wiki/API).
+* Documentation for the API, including a list of methods and example usages [can be found here](https://github.com/WiIIiam278/HuskTowns/wiki/API).
 * Browse the [me.william278.husktowns.HuskTownsAPI JavaDocs here](https://wiiiiam278.github.io/me.william278.husktowns.HuskTownsAPI/).
