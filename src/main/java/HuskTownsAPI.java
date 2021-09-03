@@ -163,6 +163,12 @@ public class HuskTownsAPI {
         return isLocationClaimedByTown(player.getLocation(), getPlayerTown(player));
     }
 
+    /**
+     * Returns whether the location is claimed by a town
+     * @param location {@link Location} to check
+     * @param townName The name of the town to check
+     * @return {@code true} if the location is within a claimed chunk
+     */
     public boolean isLocationClaimedByTown(Location location, String townName) {
         return getClaimedChunk(location).getTown().equals(townName);
     }
@@ -171,7 +177,7 @@ public class HuskTownsAPI {
      * Returns whether the specified {@link Player} can build at the specified {@link Location}.
      * @param player {@link Player} to check.
      * @param location {@link Location} to check.
-     * @return true if the player can build at the specified {@link Location}; false otherwise.
+     * @return {@code true} if the player can build at the specified {@link Location}; false otherwise.
      */
     public boolean canBuild(Player player, Location location) {
         return canBuild(player.getUniqueId(), location);
@@ -181,7 +187,7 @@ public class HuskTownsAPI {
      * Returns whether the player specified by their {@link UUID} can build at the specified {@link Location}.
      * @param uuid {@link UUID} of the player to check.
      * @param location {@link Location} to check.
-     * @return true if the player can build at the specified {@link Location}; false otherwise.
+     * @return {@code true} if the player can build at the specified {@link Location}; false otherwise.
      */
     public boolean canBuild(UUID uuid, Location location) {
         final ClaimCache claimCache = HuskTowns.getClaimCache();
@@ -324,34 +330,34 @@ public class HuskTownsAPI {
     }
 
     /**
-     * Returns the {@link me.william278.husktowns.object.cache.Cache.CacheStatus} of the claim cache
-     * @return the cache's status
+     * Returns if the claim cache is loaded
+     * @return {@code true} if the cache is loaded
      */
-    public Cache.CacheStatus getClaimedCacheStatus() {
-        return HuskTowns.getClaimCache().getStatus();
+    public boolean getClaimedCacheStatus() {
+        return HuskTowns.getClaimCache().getStatus() == Cache.CacheStatus.LOADED;
     }
 
     /**
-     * Returns the {@link me.william278.husktowns.object.cache.Cache.CacheStatus} of the player cache
-     * @return the cache's status
+     * Returns if the player cache is loaded
+     * @return {@code true} if the cache is loaded
      */
-    public Cache.CacheStatus getPlayerCacheStatus() {
-        return HuskTowns.getPlayerCache().getStatus();
+    public boolean getPlayerCacheStatus() {
+        return HuskTowns.getPlayerCache().getStatus() == Cache.CacheStatus.LOADED;
     }
 
     /**
-     * Returns the {@link me.william278.husktowns.object.cache.Cache.CacheStatus} of the town message cache
-     * @return the cache's status
+     * Returns if the town data cache is loaded
+     * @return {@code true} if the cache is loaded
      */
-    public Cache.CacheStatus getTownMessageCacheStatus() {
-        return HuskTowns.getTownDataCache().getStatus();
+    public boolean getTownDataCacheStatus() {
+        return HuskTowns.getTownDataCache().getStatus() == Cache.CacheStatus.LOADED;
     }
 
     /**
-     * Returns the {@link me.william278.husktowns.object.cache.Cache.CacheStatus} of the town bonuses cache
-     * @return the cache's status
+     * Returns if the town bonuses cache is loaded
+     * @return {@code true} if the cache is loaded
      */
-    public Cache.CacheStatus getTownBonusCacheStatus() {
-        return HuskTowns.getTownBonusesCache().getStatus();
+    public boolean getTownBonusCacheStatus() {
+        return HuskTowns.getTownBonusesCache().getStatus() == Cache.CacheStatus.LOADED;
     }
 }

@@ -12,7 +12,9 @@
     <groupId>me.william278.HuskTowns</groupId>
     <artifactId>api</artifactId>
     <packaging>jar</packaging>
-
+    <properties>
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -22,7 +24,9 @@
                 <configuration>
                     <detectJavaApiLink>false</detectJavaApiLink>
                     <additionalJOption>-Xdoclint:none</additionalJOption>
-                    <staleDataPath>${project.build.directory}/javadoc-bundle-options/maven-javadoc-plugin-stale-data.txt</staleDataPath>
+                    <staleDataPath>
+                        ${project.build.directory}/javadoc-bundle-options/maven-javadoc-plugin-stale-data.txt
+                    </staleDataPath>
                     <source>${java.version}</source>
                     <links>
                         <link>https://hub.spigotmc.org/javadocs/spigot/</link>
@@ -47,6 +51,14 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub WiIIiam278 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/wiiiiam278/husktownsapi</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
