@@ -1,4 +1,10 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
 dependencies {
+    implementation project(':common')
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly project(':bukkit')
 }
@@ -14,11 +20,28 @@ publishing {
     }
 }
 
+shadowJar {
+    relocate ':common', 'me.william278.husktowns'
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
 }
 
+task alljavadoc(type: Javadoc) {
+    source project(':common').sourceSets.main.allJava
+    source project(':api').sourceSets.main.allJava
+    classpath = files(project(':common').sourceSets.main.compileClasspath)
+    classpath = files(project(':api').sourceSets.main.compileClasspath)
+    destinationDir = file("${buildDir}/docs/javadoc")
+}
+
+task javadocJar(type: Jar, dependsOn: alljavadoc) {
+    classifier = 'javadoc'
+    from alljavadoc.destinationDir
+}
+
 java {
-    withJavadocJar()
+    shadowJar.finalizedBy javadocJar
 }

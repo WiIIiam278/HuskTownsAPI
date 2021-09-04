@@ -1,14 +1,12 @@
 package me.william278.husktowns;
 
+import me.william278.husktowns.cache.*;
+import me.william278.husktowns.util.AccessManager;
 import me.william278.husktowns.data.DataManager;
 import me.william278.husktowns.listener.EventListener;
-import me.william278.husktowns.object.cache.Cache;
-import me.william278.husktowns.object.cache.ClaimCache;
-import me.william278.husktowns.object.cache.PlayerCache;
-import me.william278.husktowns.object.cache.TownDataCache;
-import me.william278.husktowns.object.chunk.ClaimedChunk;
-import me.william278.husktowns.object.town.Town;
-import me.william278.husktowns.object.town.TownBonus;
+import me.william278.husktowns.chunk.ClaimedChunk;
+import me.william278.husktowns.town.TownBonus;
+import me.william278.husktowns.town.TownRole;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -55,7 +53,7 @@ public class HuskTownsAPI {
      */
     public boolean isWilderness(Location location) {
         ClaimCache cache = HuskTowns.getClaimCache();
-        if (cache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (cache.getStatus() == CacheStatus.LOADED) {
             return cache.getChunkAt(location.getChunk().getX(),
                     location.getChunk().getZ(), location.getWorld().getName()) == null;
         } else {
@@ -82,7 +80,7 @@ public class HuskTownsAPI {
         int chunkZ = location.getChunk().getZ();
         World world = location.getWorld();
         ClaimCache cache = HuskTowns.getClaimCache();
-        if (cache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (cache.getStatus() == CacheStatus.LOADED) {
             return cache.getChunkAt(chunkX, chunkZ, world.getName());
         } else {
             return null;
@@ -99,13 +97,13 @@ public class HuskTownsAPI {
     }
 
     /**
-     * Returns the {@link Town.TownRole} of the specified {@link Player} given by their {@link UUID}; null if they are not in a town.
+     * Returns the {@link TownRole} of the specified {@link Player} given by their {@link UUID}; null if they are not in a town.
      * @param playerUUID the {@link UUID} to check.
-     * @return the {@link Town.TownRole} of the {@link Player} given by their {@link UUID}, or null if they are not in a town.
+     * @return the {@link TownRole} of the {@link Player} given by their {@link UUID}, or null if they are not in a town.
      */
-    public Town.TownRole getPlayerTownRole(UUID playerUUID) {
+    public TownRole getPlayerTownRole(UUID playerUUID) {
         PlayerCache cache = HuskTowns.getPlayerCache();
-        if (cache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (cache.getStatus() == CacheStatus.LOADED) {
             return cache.getPlayerRole(playerUUID);
         } else {
             return null;
@@ -113,11 +111,11 @@ public class HuskTownsAPI {
     }
 
     /**
-     * Returns the {@link Town.TownRole} of the specified {@link Player}; null if they are not in a town.
+     * Returns the {@link TownRole} of the specified {@link Player}; null if they are not in a town.
      * @param player the {@link Player} to check.
-     * @return the {@link Town.TownRole} of the {@link Player}, or null if they are not in a town.
+     * @return the {@link TownRole} of the {@link Player}, or null if they are not in a town.
      */
-    public Town.TownRole getPlayerTownRole(Player player) {
+    public TownRole getPlayerTownRole(Player player) {
         return getPlayerTownRole(player.getUniqueId());
     }
 
@@ -146,7 +144,7 @@ public class HuskTownsAPI {
      */
     public String getPlayerTown(UUID playerUUID) {
         PlayerCache playerCache = HuskTowns.getPlayerCache();
-        if (playerCache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (playerCache.getStatus() == CacheStatus.LOADED) {
             return playerCache.getPlayerTown(playerUUID);
         } else {
             return null;
@@ -216,7 +214,7 @@ public class HuskTownsAPI {
             return true;
         }
         if (isLocationClaimedByTown(location, getPlayerTown(uuid))) {
-            return switch (getClaimedChunk(location).getPlayerAccess(uuid, type)) {
+            return switch (AccessManager.getPlayerAccess(uuid, type, getClaimedChunk(location))) {
                 case CAN_PERFORM_ACTION_TRUSTED, CAN_PERFORM_ACTION_TOWN_FARM, CAN_PERFORM_ACTION_PLOT_MEMBER, CAN_PERFORM_ACTION_PLOT_OWNER, CAN_PERFORM_ACTION_IGNORING_CLAIMS, CAN_PERFORM_ACTION_ADMIN_CLAIM_ACCESS, CAN_PERFORM_ACTION_PUBLIC_BUILD_ACCESS_FLAG -> true;
                 default -> false;
             };
@@ -262,7 +260,7 @@ public class HuskTownsAPI {
      */
     public HashSet<String> getPlayersInTown(String townName) {
         PlayerCache cache = HuskTowns.getPlayerCache();
-        if (cache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (cache.getStatus() == CacheStatus.LOADED) {
             return cache.getPlayersInTown(townName);
         } else {
             return new HashSet<>();
@@ -274,10 +272,10 @@ public class HuskTownsAPI {
      * @param townName The name of the Town
      * @return the usernames of the town's members and their roles
      */
-    public HashMap<String, Town.TownRole> getPlayersInTownRoles(String townName) {
-        HashMap<String, Town.TownRole> playersInTownRoles = new HashMap<>();
+    public HashMap<String, TownRole> getPlayersInTownRoles(String townName) {
+        HashMap<String, TownRole> playersInTownRoles = new HashMap<>();
         PlayerCache cache = HuskTowns.getPlayerCache();
-        if (cache.getStatus() == Cache.CacheStatus.LOADED) {
+        if (cache.getStatus() == CacheStatus.LOADED) {
             for (String username : getPlayersInTown(townName)) {
                 playersInTownRoles.put(username, cache.getPlayerRole(cache.getUUID(username)));
             }
@@ -293,9 +291,9 @@ public class HuskTownsAPI {
      * @return the username of the Town's mayor.
      */
     public String getTownMayor(String townName) {
-        HashMap<String, Town.TownRole> playersInTownRoles = getPlayersInTownRoles(townName);
+        HashMap<String, TownRole> playersInTownRoles = getPlayersInTownRoles(townName);
         for (String username : playersInTownRoles.keySet()) {
-            if (playersInTownRoles.get(username) == Town.TownRole.MAYOR) {
+            if (playersInTownRoles.get(username) == TownRole.MAYOR) {
                 return username;
             }
         }
@@ -304,7 +302,7 @@ public class HuskTownsAPI {
 
     /**
      * Add a town bonus
-     * @param townName The name of the {@link me.william278.husktowns.object.town.Town} to apply a bonus to
+     * @param townName The name of the {@link me.william278.husktowns.town.Town} to apply a bonus to
      * @param bonusClaims The number of additional claims you wish to apply
      * @param bonusMembers The number of additional members you wish to apply
      */
@@ -375,12 +373,30 @@ public class HuskTownsAPI {
     }
 
     /**
+     * Get a {@link Player}'s username by their {@link UUID} from the cache
+     * @param uuid the player's {@link UUID}
+     * @return the player's username
+     */
+    public String getPlayerUsername(UUID uuid) {
+        if (isPlayerCacheLoaded()) {
+            return HuskTowns.getPlayerCache().getPlayerUsername(uuid);
+        }
+        return null;
+    }
+
+    /**
      * Returns if the claim cache is loaded
      * @return {@code true} if the cache is loaded
      */
-    public boolean isClaimedCacheLoaded() {
+    public boolean isClaimCacheLoaded() {
         return HuskTowns.getClaimCache().hasLoaded();
     }
+
+    /**
+     * Returns the {@link CacheStatus} of the claim cache
+     * @return The {@link CacheStatus}
+     */
+    public CacheStatus getClaimCacheStatus() { return HuskTowns.getClaimCache().getStatus(); }
 
     /**
      * Returns if the player cache is loaded
@@ -391,6 +407,13 @@ public class HuskTownsAPI {
     }
 
     /**
+     * Returns the {@link CacheStatus} of the player cache
+     * @return The {@link CacheStatus}
+     */
+    public CacheStatus getPlayerCacheStatus() { return HuskTowns.getPlayerCache().getStatus(); }
+
+
+    /**
      * Returns if the town data cache is loaded
      * @return {@code true} if the cache is loaded
      */
@@ -399,10 +422,22 @@ public class HuskTownsAPI {
     }
 
     /**
+     * Returns the {@link CacheStatus} of the town data cache
+     * @return The {@link CacheStatus}
+     */
+    public CacheStatus getTownDataCacheStatus() { return HuskTowns.getTownDataCache().getStatus(); }
+
+    /**
      * Returns if the town bonuses cache is loaded
      * @return {@code true} if the cache is loaded
      */
     public boolean isTownBonusCacheLoaded() {
         return HuskTowns.getTownBonusesCache().hasLoaded();
     }
+
+    /**
+     * Returns the {@link CacheStatus} of the town bonus cache
+     * @return The {@link CacheStatus}
+     */
+    public CacheStatus getTownBonusCacheStatus() { return HuskTowns.getTownBonusesCache().getStatus(); }
 }
