@@ -29,19 +29,19 @@ repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
 }
 
-task alljavadoc(type: Javadoc) {
-    source project(':common').sourceSets.main.allJava
-    source project(':api').sourceSets.main.allJava
+task javadocs(type: Javadoc) {
+    source = project(':common').sourceSets.main.allJava
+    source += project(':api').sourceSets.main.allJava
     classpath = files(project(':common').sourceSets.main.compileClasspath)
-    classpath = files(project(':api').sourceSets.main.compileClasspath)
+    classpath += files(project(':api').sourceSets.main.compileClasspath)
     destinationDir = file("${buildDir}/docs/javadoc")
 }
 
-task javadocJar(type: Jar, dependsOn: alljavadoc) {
+task javadocsJar(type: Jar, dependsOn: javadocs) {
     classifier = 'javadoc'
-    from alljavadoc.destinationDir
+    from javadocs.destinationDir
 }
 
-java {
-    shadowJar.finalizedBy javadocJar
+artifacts {
+    archives javadocsJar
 }
