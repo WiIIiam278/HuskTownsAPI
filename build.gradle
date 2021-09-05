@@ -13,6 +13,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            afterEvaluate {
+                artifact javadocsJar
+            }
         }
     }
     repositories {
@@ -40,8 +43,4 @@ task javadocs(type: Javadoc) {
 task javadocsJar(type: Jar, dependsOn: javadocs) {
     classifier = 'javadoc'
     from javadocs.destinationDir
-}
-
-artifacts {
-    archives javadocsJar
 }
