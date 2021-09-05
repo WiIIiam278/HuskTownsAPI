@@ -23,15 +23,13 @@ import java.util.UUID;
 
 /**
  * @author William278
- * <h1>The HuskTowns API</h1>
- * <p1>
+ * The HuskTowns API
+ * <p>
  *     Documentation for the API, including a list of methods and example usages can be found here:
  *     https://github.com/WiIIiam278/HuskTowns/wiki/API
- * </p1>
- * <p2>
  *     To use the API, get an instance of it with: {@code HuskTownsAPI api = HuskTownsAPI.getInstance();}
  *     Then you can use the various methods provided: {@code api.getTownAt(location);}
- * </p2>
+ * </p>
  */
 public class HuskTownsAPI {
 
@@ -186,7 +184,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the action ({@link ActionType}) is allowed to be carried out at the specified {@link Location}
-     * @apiNote Use {@code canPerformAction()}, {@code canBuild()}, {@code canInteract()}, {@code canOpenContainers()}, etc. if you want to check if a {@link Player} is can perform an action.
+     * Use {@code canPerformAction()}, {@code canBuild()}, {@code canInteract()}, {@code canOpenContainers()}, etc. if you want to check if a {@link Player} is can perform an action.
      * @param location The {@link Location} to check if the action is allowed to be carried out at.
      * @param actionType The {@link ActionType} to check.
      * @return {@code true} if the action is allowed to occur, {@code false} otherwise.
