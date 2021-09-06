@@ -22,14 +22,11 @@ import java.util.HashSet;
 import java.util.UUID;
 
 /**
- * @author William278
- * The HuskTowns API
- * <p>
- *     Documentation for the API, including a list of methods and example usages can be found here:
- *     https://github.com/WiIIiam278/HuskTowns/wiki/API
- *     To use the API, get an instance of it with: {@code HuskTownsAPI api = HuskTownsAPI.getInstance();}
- *     Then you can use the various methods provided: {@code api.getTownAt(location);}
- * </p>
+ * API methods for HuskTowns
+ * Documentation for the API, including a list of methods and example usages can be found here:
+ * https://github.com/WiIIiam278/HuskTowns/wiki/API
+ * To use the API, get an instance of it with: {@code HuskTownsAPI api = HuskTownsAPI.getInstance();}
+ * Then you can use the various methods provided: {@code api.getTownAt(location);}
  */
 public class HuskTownsAPI {
 
@@ -37,6 +34,7 @@ public class HuskTownsAPI {
 
     /**
      * Get a new instance of the {@link HuskTownsAPI}.
+     *
      * @return instance of the {@link HuskTownsAPI}.
      */
     public static HuskTownsAPI getInstance() {
@@ -48,6 +46,7 @@ public class HuskTownsAPI {
 
     /**
      * Check if the specified {@link Block} is in the wilderness (outside a claim).
+     *
      * @param block {@link Block} to check.
      * @return {@code true} if the {@link Block} is in the wilderness; otherwise return {@code false}.
      */
@@ -57,6 +56,7 @@ public class HuskTownsAPI {
 
     /**
      * Check if the specified {@link Location} is in the wilderness (outside of a claim).
+     *
      * @param location {@link Location} to check.
      * @return {@code true} if the {@link Location} is in the wilderness; otherwise return {@code false}.
      */
@@ -72,6 +72,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the name of the town at the specified {@link Location}.
+     *
      * @param location {@link Location} to check.
      * @return the name of the town who has a claim at the specified {@link Location}; {@code null} if there is no claim there.
      */
@@ -81,6 +82,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link ClaimedChunk} at the specified {@link Location}; returns null if there is no claim there
+     *
      * @param location {@link Location} to check.
      * @return the {@link ClaimedChunk} at the specified position; {@code null} if there's no claim there
      */
@@ -98,6 +100,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns {@code true} if the chunk at the specified {@link Location} is claimed; otherwise returns {@code false}.
+     *
      * @param location {@link Location} to check.
      * @return {@code true} if the chunk at {@link Location} is claimed; {@code false} otherwise.
      */
@@ -107,6 +110,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link TownRole} of the specified {@link Player} given by their {@link UUID}; null if they are not in a town.
+     *
      * @param playerUUID the {@link UUID} to check.
      * @return the {@link TownRole} of the {@link Player} given by their {@link UUID}, or null if they are not in a town.
      */
@@ -121,6 +125,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link TownRole} of the specified {@link Player}; null if they are not in a town.
+     *
      * @param player the {@link Player} to check.
      * @return the {@link TownRole} of the {@link Player}, or null if they are not in a town.
      */
@@ -130,6 +135,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the name of the town the {@link Player} is currently in; null if they are not in a town
+     *
      * @param player {@link Player} to check.
      * @return the name of the town the {@link Player} is currently in; null if they are not in a town.
      */
@@ -139,6 +145,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns {@code true} if the {@link Player} is in a town; {@code false} if not.
+     *
      * @param player {@link Player} to check.
      * @return {@code true} if the {@link Player} is in a town; {@code false} otherwise.
      */
@@ -148,6 +155,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the name of the town the {@link Player} given by their {@link UUID} is currently in; null if they are not in a town
+     *
      * @param playerUUID {@link UUID} of the {@link Player} to check.
      * @return the name of the town the {@link Player} is currently in; null if they are not in a town.
      */
@@ -162,6 +170,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the {@link Player} is currently standing in a {@link ClaimedChunk} owned by the town they are in.
+     *
      * @param player {@link Player} to check.
      * @return {@code true} if the {@link Player} is standing in a {@link ClaimedChunk} owned by the town they are in; {@code false} otherwise or if they are not in a town
      */
@@ -174,6 +183,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the location is claimed by a town.
+     *
      * @param location {@link Location} to check.
      * @param townName The name of the town to check.
      * @return {@code true} if the location is within a claimed chunk.
@@ -185,7 +195,8 @@ public class HuskTownsAPI {
     /**
      * Returns whether the action ({@link ActionType}) is allowed to be carried out at the specified {@link Location}
      * Use {@code canPerformAction()}, {@code canBuild()}, {@code canInteract()}, {@code canOpenContainers()}, etc. if you want to check if a {@link Player} is can perform an action.
-     * @param location The {@link Location} to check if the action is allowed to be carried out at.
+     *
+     * @param location   The {@link Location} to check if the action is allowed to be carried out at.
      * @param actionType The {@link ActionType} to check.
      * @return {@code true} if the action is allowed to occur, {@code false} otherwise.
      */
@@ -195,8 +206,9 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the {@link Player} can perform the action ({@link ActionType}) at the specified {@link Location}.
-     * @param player The {@link Player} performing the action.
-     * @param location The {@link Location} to check if the action can be performed at.
+     *
+     * @param player     The {@link Player} performing the action.
+     * @param location   The {@link Location} to check if the action can be performed at.
      * @param actionType The {@link ActionType} to check.
      * @return {@code true} if the player is allowed to perform the action, {@code false} otherwise.
      */
@@ -206,7 +218,8 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the specified {@link Player} can build at the specified {@link Location}.
-     * @param player {@link Player} to check.
+     *
+     * @param player   {@link Player} to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can build at the specified {@link Location}; {@code false} otherwise.
      */
@@ -216,24 +229,31 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the specified {@link Player} can open containers (e.g {@link org.bukkit.block.Chest}, {@link org.bukkit.block.Barrel}, {@link org.bukkit.block.ShulkerBox}, {@link org.bukkit.block.Hopper}, etc) at the specified {@link Location}.
-     * @param player {@link Player} to check.
+     *
+     * @param player   {@link Player} to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can open containers at the specified {@link Location}; {@code false} otherwise.
      */
-    public boolean canOpenContainers(Player player, Location location) { return canOpenContainers(player.getUniqueId(), location); }
+    public boolean canOpenContainers(Player player, Location location) {
+        return canOpenContainers(player.getUniqueId(), location);
+    }
 
     /**
      * Returns whether the specified {@link Player} can interact (push buttons, open doors, use minecarts) - but not necessarily open containers - at the specified {@link Location}.
-     * @param player {@link Player} to check.
+     *
+     * @param player   {@link Player} to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can interact at the specified {@link Location}; {@code false} otherwise.
      */
-    public boolean canInteract(Player player, Location location) { return canInteract(player.getUniqueId(), location); }
+    public boolean canInteract(Player player, Location location) {
+        return canInteract(player.getUniqueId(), location);
+    }
 
     /**
      * Returns whether the player specified by their {@link UUID} can perform the action ({@link ActionType}) at the specified {@link Location}.
-     * @param uuid The player who is performing the action's {@link UUID}.
-     * @param location The {@link Location} to check if the action can be performed at.
+     *
+     * @param uuid       The player who is performing the action's {@link UUID}.
+     * @param location   The {@link Location} to check if the action can be performed at.
      * @param actionType The {@link ActionType} to check.
      * @return {@code true} if the player is allowed to perform the action, {@code false} otherwise.
      */
@@ -262,7 +282,8 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the player specified by their {@link UUID} can build at the specified {@link Location}.
-     * @param uuid {@link UUID} of the player to check.
+     *
+     * @param uuid     {@link UUID} of the player to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can build at the specified {@link Location}; {@code false} otherwise.
      */
@@ -272,7 +293,8 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the player specified by their {@link UUID} can open containers (e.g {@link org.bukkit.block.Chest}, {@link org.bukkit.block.Barrel}, {@link org.bukkit.block.ShulkerBox}, {@link org.bukkit.block.Hopper}, etc) at the specified {@link Location}.
-     * @param uuid {@link UUID} of the player to check.
+     *
+     * @param uuid     {@link UUID} of the player to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can open containers at the specified {@link Location}; {@code false} otherwise.
      */
@@ -282,7 +304,8 @@ public class HuskTownsAPI {
 
     /**
      * Returns whether the player specified by their {@link UUID} can interact (push buttons, open doors, use minecarts) - but not necessarily open containers - at the specified {@link Location}.
-     * @param uuid {@link UUID} of the player to check.
+     *
+     * @param uuid     {@link UUID} of the player to check.
      * @param location {@link Location} to check.
      * @return {@code true} if the player can interact at the specified {@link Location}; {@code false} otherwise.
      */
@@ -292,6 +315,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns a HashSet of all the usernames of members of a given Town.
+     *
      * @param townName the name of the Town.
      * @return the usernames of the town's members.
      */
@@ -306,6 +330,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns a HashMap of all the members of a given Town and their roles within the town.
+     *
      * @param townName The name of the Town.
      * @return the usernames of the town's members and their roles.
      */
@@ -324,6 +349,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the username of the Mayor of the given town name.
+     *
      * @param townName The name of the Town.
      * @return the username of the Town's mayor.
      */
@@ -339,8 +365,9 @@ public class HuskTownsAPI {
 
     /**
      * Add a town bonus
-     * @param townName The name of the town to apply a bonus to.
-     * @param bonusClaims The number of additional claims you wish to apply.
+     *
+     * @param townName     The name of the town to apply a bonus to.
+     * @param bonusClaims  The number of additional claims you wish to apply.
      * @param bonusMembers The number of additional members you wish to apply.
      */
     public void addTownBonus(String townName, int bonusClaims, int bonusMembers) {
@@ -350,6 +377,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the message sent to players when they enter a town's claim.
+     *
      * @param townName The name of the town.
      * @return The town's greeting message, {@code null} if the Town Data cache has not loaded.
      */
@@ -363,6 +391,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the message sent to players when they leave a town's claim.
+     *
      * @param townName The name of the town.
      * @return The town's farewell message, {@code null} if the Town Data cache has not loaded.
      */
@@ -376,6 +405,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the bio of a town.
+     *
      * @param townName The name of the town.
      * @return The town's bio, {@code null} if the Town Data cache has not loaded.
      */
@@ -389,6 +419,7 @@ public class HuskTownsAPI {
 
     /**
      * Get a list of the names of all towns.
+     *
      * @return A HashSet of all town names, {@code null} if the Player cache has not loaded.
      */
     public HashSet<String> getTowns() {
@@ -400,6 +431,7 @@ public class HuskTownsAPI {
 
     /**
      * Get a list of the names of all towns who have their town spawn set to public.
+     *
      * @return A HashSet of the names of all towns with their spawn set to public, {@code null} if the Town Data cache has not loaded.
      */
     public HashSet<String> getTownsWithPublicSpawns() {
@@ -411,6 +443,7 @@ public class HuskTownsAPI {
 
     /**
      * Get a {@link Player}'s username by their {@link UUID} from the cache.
+     *
      * @param uuid the player's {@link UUID}.
      * @return the player's username.
      */
@@ -423,6 +456,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns if the claim cache is loaded.
+     *
      * @return {@code true} if the cache is loaded.
      */
     public boolean isClaimCacheLoaded() {
@@ -431,12 +465,16 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link CacheStatus} of the claim cache.
+     *
      * @return The {@link CacheStatus}.
      */
-    public CacheStatus getClaimCacheStatus() { return HuskTowns.getClaimCache().getStatus(); }
+    public CacheStatus getClaimCacheStatus() {
+        return HuskTowns.getClaimCache().getStatus();
+    }
 
     /**
      * Returns if the player cache is loaded.
+     *
      * @return {@code true} if the cache is loaded.
      */
     public boolean isPlayerCacheLoaded() {
@@ -445,13 +483,17 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link CacheStatus} of the player cache.
+     *
      * @return The {@link CacheStatus}.
      */
-    public CacheStatus getPlayerCacheStatus() { return HuskTowns.getPlayerCache().getStatus(); }
+    public CacheStatus getPlayerCacheStatus() {
+        return HuskTowns.getPlayerCache().getStatus();
+    }
 
 
     /**
      * Returns if the town data cache is loaded.
+     *
      * @return {@code true} if the cache is loaded.
      */
     public boolean isTownDataCacheLoaded() {
@@ -460,12 +502,16 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link CacheStatus} of the town data cache.
+     *
      * @return The {@link CacheStatus}.
      */
-    public CacheStatus getTownDataCacheStatus() { return HuskTowns.getTownDataCache().getStatus(); }
+    public CacheStatus getTownDataCacheStatus() {
+        return HuskTowns.getTownDataCache().getStatus();
+    }
 
     /**
      * Returns if the town bonuses cache is loaded.
+     *
      * @return {@code true} if the cache is loaded.
      */
     public boolean isTownBonusCacheLoaded() {
@@ -474,12 +520,16 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link CacheStatus} of the town bonus cache.
+     *
      * @return The {@link CacheStatus}.
      */
-    public CacheStatus getTownBonusCacheStatus() { return HuskTowns.getTownBonusesCache().getStatus(); }
+    public CacheStatus getTownBonusCacheStatus() {
+        return HuskTowns.getTownBonusesCache().getStatus();
+    }
 
     /**
      * Returns the hexadecimal color code for a town given its name
+     *
      * @param townName The name of the town to get the color of
      * @return The town's color code string (e.g #ffffff)
      */
@@ -489,6 +539,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the {@link Color} of a town given its name.
+     *
      * @param townName The name of the town to get the color of
      * @return The town's {@link Color}
      */
