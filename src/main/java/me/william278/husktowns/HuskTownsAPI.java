@@ -554,11 +554,22 @@ public class HuskTownsAPI {
         return Town.getTownColor(townName);
     }
 
+    /**
+     * Returns an unformatted message by ID from the user's messages file
+     *
+     * @param messageId The ID of the message to fetch
+     * @return The message from the player's messages yaml file
+     */
+    public String getMessageString(String messageId) {
+        return MessageManager.getRawMessage(messageId);
+    }
+
     /* Non-thread safe methods!
      * The following methods draw data from SQL data directly rather than caches and should not be used on the main thread.*/
 
     /**
      * NOT THREAD SAFE - Returns the {@link Town} object with the given name from the database
+     *
      * @param townName The name of the town
      * @return the {@link Town} object, or {@code null} if it does not exist
      */
@@ -574,6 +585,7 @@ public class HuskTownsAPI {
 
     /**
      * NOT THREAD SAFE - Returns the balance of the town with the given name
+     *
      * @param townName The name of the town
      * @return the balance, or {@code null} if the town does not exist
      */
@@ -587,6 +599,7 @@ public class HuskTownsAPI {
 
     /**
      * NOT THREAD SAFE - Returns the level of the town with the given name
+     *
      * @param townName The name of the town
      * @return the town level, or {@code null} if the town does not exist
      */
@@ -600,6 +613,7 @@ public class HuskTownsAPI {
 
     /**
      * Returns the amount of money required to be deposited for a town to level up
+     *
      * @param townName The name of the town
      * @return The amount of money needed to reach the next level; {@code null} if the town does not exist
      */
@@ -613,6 +627,7 @@ public class HuskTownsAPI {
 
     /**
      * NOT THREAD SAFE - Returns the time the town with the given name was founded
+     *
      * @param townName The name of the town
      * @return the town's formatted founded timestamp, or {@code null} if the town does not exist
      */
