@@ -9,6 +9,7 @@ import me.william278.husktowns.data.DataManager;
 import me.william278.husktowns.chunk.ClaimedChunk;
 import me.william278.husktowns.town.TownBonus;
 import me.william278.husktowns.town.TownRole;
+import me.william278.husktowns.util.TownLimitsUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,10 +17,13 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
+import java.util.logging.Level;
 
 /**
  * API methods for HuskTowns
@@ -43,6 +47,9 @@ public class HuskTownsAPI {
         }
         return instance;
     }
+
+    /* Thread safe methods!
+     * The following methods draw data from caches and are safe to be performed on the main thread.*/
 
     /**
      * Check if the specified {@link Block} is in the wilderness (outside a claim).
@@ -546,4 +553,75 @@ public class HuskTownsAPI {
     public Color getTownColor(String townName) {
         return Town.getTownColor(townName);
     }
+
+    /* Non-thread safe methods!
+     * The following methods draw data from SQL data directly rather than caches and should not be used on the main thread.*/
+
+    /**
+     * NOT THREAD SAFE - Returns the {@link Town} object with the given name from the database
+     * @param townName The name of the town
+     * @return the {@link Town} object, or {@code null} if it does not exist
+     */
+    private Town getTownFromDatabase(String townName) {
+        try {
+            Connection connection = HuskTowns.getConnection();
+            return DataManager.getTownFromName(townName, connection);
+        } catch (SQLException e) {
+            HuskTowns.getInstance().getLogger().log(Level.SEVERE, "An exception occurred pulling data from SQL via the API", e);
+        }
+        return null;
+    }
+
+    /**
+     * NOT THREAD SAFE - Returns the balance of the town with the given name
+     * @param townName The name of the town
+     * @return the balance, or {@code null} if the town does not exist
+     */
+    public Double getTownBalance(String townName) {
+        Town town = getTownFromDatabase(townName);
+        if (town != null) {
+            return town.getMoneyDeposited();
+        }
+        return null;
+    }
+
+    /**
+     * NOT THREAD SAFE - Returns the level of the town with the given name
+     * @param townName The name of the town
+     * @return the town level, or {@code null} if the town does not exist
+     */
+    public Integer getTownLevel(String townName) {
+        Town town = getTownFromDatabase(townName);
+        if (town != null) {
+            return town.getLevel();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the amount of money required to be deposited for a town to level up
+     * @param townName The name of the town
+     * @return The amount of money needed to reach the next level; {@code null} if the town does not exist
+     */
+    public Double getAmountToNextLevel(String townName) {
+        Double coffers = getTownBalance(townName);
+        if (coffers != null) {
+            return TownLimitsUtil.getNextLevelRequired(coffers);
+        }
+        return null;
+    }
+
+    /**
+     * NOT THREAD SAFE - Returns the time the town with the given name was founded
+     * @param townName The name of the town
+     * @return the town's formatted founded timestamp, or {@code null} if the town does not exist
+     */
+    public String getTownFoundedTime(String townName) {
+        Town town = getTownFromDatabase(townName);
+        if (town != null) {
+            return town.getFormattedFoundedTime();
+        }
+        return null;
+    }
+
 }
