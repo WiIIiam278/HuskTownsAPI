@@ -273,18 +273,13 @@ public class HuskTownsAPI {
         if (!playerCache.hasLoaded()) {
             return false;
         }
-        HuskTownsAPI api = HuskTownsAPI.getInstance();
         if (isWilderness(location)) {
             return true;
         }
-        if (isLocationClaimedByTown(location, getPlayerTown(uuid))) {
-            return switch (AccessManager.getPlayerAccess(uuid, actionType, getClaimedChunk(location))) {
-                case CAN_PERFORM_ACTION_TRUSTED, CAN_PERFORM_ACTION_TOWN_FARM, CAN_PERFORM_ACTION_PLOT_MEMBER, CAN_PERFORM_ACTION_PLOT_OWNER, CAN_PERFORM_ACTION_IGNORING_CLAIMS, CAN_PERFORM_ACTION_ADMIN_CLAIM_ACCESS, CAN_PERFORM_ACTION_PUBLIC_BUILD_ACCESS_FLAG -> true;
-                default -> false;
-            };
-        } else {
-            return false;
-        }
+        return switch (AccessManager.getPlayerAccess(uuid, actionType, getClaimedChunk(location))) {
+            case CAN_PERFORM_ACTION_TRUSTED, CAN_PERFORM_ACTION_TOWN_FARM, CAN_PERFORM_ACTION_PLOT_MEMBER, CAN_PERFORM_ACTION_PLOT_OWNER, CAN_PERFORM_ACTION_IGNORING_CLAIMS, CAN_PERFORM_ACTION_ADMIN_CLAIM_ACCESS, CAN_PERFORM_ACTION_PUBLIC_BUILD_ACCESS_FLAG -> true;
+            default -> false;
+        };
     }
 
     /**
