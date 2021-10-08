@@ -569,8 +569,7 @@ public class HuskTownsAPI {
      * @return the {@link Town} object, or {@code null} if it does not exist
      */
     private Town getTownFromDatabase(String townName) {
-        try {
-            Connection connection = HuskTowns.getConnection();
+        try (Connection connection = HuskTowns.getConnection()) {
             return DataManager.getTownFromName(townName, connection);
         } catch (SQLException e) {
             HuskTowns.getInstance().getLogger().log(Level.SEVERE, "An exception occurred pulling data from SQL via the API", e);
