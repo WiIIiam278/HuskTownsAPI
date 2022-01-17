@@ -34,6 +34,9 @@ import java.util.logging.Level;
  */
 public class HuskTownsAPI {
 
+    private HuskTownsAPI() {
+    }
+
     private static HuskTownsAPI instance;
 
     /**
